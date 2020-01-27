@@ -5,5 +5,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bluetooth-rpc-client.js',
+        library: 'BluetoothRPCClient',
+        libraryTarget: 'umd'
     },
 };
