@@ -130,24 +130,22 @@ function directHandlerCallWrapper (cs) {
     });
 }
 
-export default {
-    async connect({serviceUuid, characteristicUuid}) {
-        if (!navigator.bluetooth) {
-            throw new Error('This device does not support bluetooth!');
-        }
-        const device = await navigator.bluetooth.requestDevice({
-            filters: [
-                {services: [serviceUuid]},
-            ],
-        });
-        const server = await device.gatt.connect();
-        const service = await server.getPrimaryService(serviceUuid);
-        const characteristics = await service.getCharacteristics(characteristicUuid);
-        if (characteristics.length === 1) {
-            const cs = new BluetoothRpcClient(characteristics[0]);
-            return directHandlerCallWrapper(cs);
-        } else {
-            throw new Error('Wrong number of characteristics!');
-        }
-    },
+export async function connect({serviceUuid, characteristicUuid}) {
+    if (!navigator.bluetooth) {
+        throw new Error('This device does not support bluetooth!');
+    }
+    const device = await navigator.bluetooth.requestDevice({
+        filters: [
+            {services: [serviceUuid]},
+        ],
+    });
+    const server = await device.gatt.connect();
+    const service = await server.getPrimaryService(serviceUuid);
+    const characteristics = await service.getCharacteristics(characteristicUuid);
+    if (characteristics.length === 1) {
+        const cs = new BluetoothRpcClient(characteristics[0]);
+        return directHandlerCallWrapper(cs);
+    } else {
+        throw new Error('Wrong number of characteristics!');
+    }
 }

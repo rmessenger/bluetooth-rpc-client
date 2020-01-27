@@ -2,9 +2,11 @@
   "name": "bluetooth-rpc-server",
   "version": "1.0.0",
   "description": "The client side of a library allowing Remove Procedure Call (RPC) from a web application to a Node.js server on a Bluetooth-enabled device.",
-  "main": "index.js",
+  "main": "dist/bluetooth-rpc-client.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "prepare": "webpack"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "murmurhash": "0.0.2"
   },
   "devDependencies": {
-    "webpack": "^4.41.5"
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   }
 }
